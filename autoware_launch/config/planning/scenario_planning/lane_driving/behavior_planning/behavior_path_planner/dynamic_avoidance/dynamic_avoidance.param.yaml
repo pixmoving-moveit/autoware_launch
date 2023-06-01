@@ -7,16 +7,16 @@
         truck: true
         bus: true
         trailer: true
-        unknown: false
+        unknown: true
         bicycle: false
         motorcycle: true
-        pedestrian: false
+        pedestrian: true
 
         min_obstacle_vel: 1.0 # [m/s]
 
       drivable_area_generation:
         lat_offset_from_obstacle: 0.8 # [m]
-        max_lat_offset_to_avoid: 0.5 # [m]
+        max_lat_offset_to_avoid: 0.2 # [m]
 
         # for same directional object
         overtaking_object:

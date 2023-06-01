@@ -28,28 +28,28 @@
       target_object:
         car:
           enable: true
-          envelope_buffer_margin: 0.3
-          safety_buffer_lateral: 0.7
+          envelope_buffer_margin: 0.2
+          safety_buffer_lateral: 0.3
           safety_buffer_longitudinal: 0.0
         truck:
           enable: true
-          envelope_buffer_margin: 0.3
-          safety_buffer_lateral: 0.7
+          envelope_buffer_margin: 0.2
+          safety_buffer_lateral: 0.3
           safety_buffer_longitudinal: 0.0
         bus:
           enable: true
-          envelope_buffer_margin: 0.3
-          safety_buffer_lateral: 0.7
+          envelope_buffer_margin: 0.2
+          safety_buffer_lateral: 0.3
           safety_buffer_longitudinal: 0.0
         trailer:
           enable: true
-          envelope_buffer_margin: 0.3
-          safety_buffer_lateral: 0.7
+          envelope_buffer_margin: 0.2
+          safety_buffer_lateral: 0.3
           safety_buffer_longitudinal: 0.0
         unknown:
-          enable: false
-          envelope_buffer_margin: 0.3
-          safety_buffer_lateral: 0.7
+          enable: true
+          envelope_buffer_margin: 0.2
+          safety_buffer_lateral: 0.3
           safety_buffer_longitudinal: 0.0
         bicycle:
           enable: false
@@ -62,9 +62,9 @@
           safety_buffer_lateral: 1.0
           safety_buffer_longitudinal: 1.0
         pedestrian:
-          enable: false
-          envelope_buffer_margin: 0.8
-          safety_buffer_lateral: 1.0
+          enable: true
+          envelope_buffer_margin: 0.3
+          safety_buffer_lateral: 0.5
           safety_buffer_longitudinal: 1.0
 
       # For target object filtering
