@@ -16,8 +16,6 @@ Panels:
     Expanded: ~
     Name: Views
     Splitter Ratio: 0.5
-  - Class: tier4_localization_rviz_plugin/InitialPoseButtonPanel
-    Name: InitialPoseButtonPanel
   - Class: AutowareDateTimePanel
     Name: AutowareDateTimePanel
   - Class: rviz_plugins::AutowareStatePanel
@@ -86,6 +84,15 @@ Visualization Manager:
                 Value: /vehicle/status/velocity_status
               Value: true
               Value height offset: 0
+            - Class: rviz_plugins/AccelerationMeter
+              Enabled: false
+              Name: AccelerationMeter
+              Topic:
+                Depth: 5
+                Durability Policy: Volatile
+                History Policy: Keep Last
+                Reliability Policy: Reliable
+                Value: /localization/acceleration
             - Alpha: 0.999
               Class: rviz_plugins/VelocityHistory
               Color Border Vel Max: 3
@@ -312,6 +319,22 @@ Visualization Manager:
               Value: true
           Enabled: true
           Name: Vehicle
+        - Class: rviz_plugins/MrmSummaryOverlayDisplay
+          Enabled: false
+          Font Size: 10
+          Left: 512
+          Max Letter Num: 100
+          Name: MRM Summary
+          Text Color: 25; 255; 240
+          Top: 64
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /system/emergency/hazard_status
+          Value: false
+          Value height offset: 0
       Enabled: true
       Name: System
     - Class: rviz_common/Group
@@ -1449,7 +1472,7 @@ Visualization Manager:
                           Value: true
                         - Class: rviz_default_plugins/MarkerArray
                           Enabled: true
-                          Name: VirtualWall (PullOver)
+                          Name: VirtualWall (GoalPlanner)
                           Namespaces:
                             {}
                           Topic:
@@ -1457,7 +1480,7 @@ Visualization Manager:
                             Durability Policy: Volatile
                             History Policy: Keep Last
                             Reliability Policy: Reliable
-                            Value: /planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner/virtual_wall/pull_over
+                            Value: /planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner/virtual_wall/goal_planner
                           Value: true
                         - Class: rviz_default_plugins/MarkerArray
                           Enabled: true
@@ -1692,32 +1715,6 @@ Visualization Manager:
                             Reliability Policy: Reliable
                             Value: /planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/debug/intersection
                           Value: false
-                        - Alpha: 0.5
-                          Autocompute Intensity Bounds: true
-                          Class: grid_map_rviz_plugin/GridMap
-                          Color: 200; 200; 200
-                          Color Layer: color
-                          Color Transformer: IntensityLayer
-                          Enabled: false
-                          Height Layer: elevation
-                          Height Transformer: Layer
-                          History Length: 1
-                          Invert Rainbow: false
-                          Max Color: 255; 255; 255
-                          Max Intensity: 10
-                          Min Color: 0; 0; 0
-                          Min Intensity: 0
-                          Name: IntersectionOcclusion
-                          Show Grid Lines: false
-                          Topic:
-                            Depth: 5
-                            Durability Policy: Volatile
-                            Filter size: 10
-                            History Policy: Keep Last
-                            Reliability Policy: Reliable
-                            Value: /planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/debug/intersection/occlusion_grid
-                          Use Rainbow: true
-                          Value: false
                         - Class: rviz_default_plugins/MarkerArray
                           Enabled: false
                           Name: Blind Spot
@@ -1828,7 +1825,7 @@ Visualization Manager:
                           Value: false
                         - Class: rviz_default_plugins/MarkerArray
                           Enabled: false
-                          Name: LaneChange
+                          Name: LeftLaneChange
                           Namespaces:
                             {}
                           Topic:
@@ -1836,7 +1833,19 @@ Visualization Manager:
                             Durability Policy: Volatile
                             History Policy: Keep Last
                             Reliability Policy: Reliable
-                            Value: /planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner/debug/lane_change
+                            Value: /planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner/debug/lane_change_left
+                          Value: false
+                        - Class: rviz_default_plugins/MarkerArray
+                          Enabled: false
+                          Name: RightLaneChange
+                          Namespaces:
+                            {}
+                          Topic:
+                            Depth: 5
+                            Durability Policy: Volatile
+                            History Policy: Keep Last
+                            Reliability Policy: Reliable
+                            Value: /planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner/debug/lane_change_right
                           Value: false
                         - Class: rviz_default_plugins/MarkerArray
                           Enabled: false
@@ -2017,7 +2026,7 @@ Visualization Manager:
                           Value: false
                         - Class: rviz_default_plugins/MarkerArray
                           Enabled: false
-                          Name: Info (PullOver)
+                          Name: Info (GoalPlanner)
                           Namespaces:
                             {}
                           Topic:
@@ -2025,7 +2034,7 @@ Visualization Manager:
                             Durability Policy: Volatile
                             History Policy: Keep Last
                             Reliability Policy: Reliable
-                            Value: /planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner/info/pull_over
+                            Value: /planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner/info/goal_planner
                           Value: false
                         - Class: rviz_default_plugins/MarkerArray
                           Enabled: false
@@ -2423,6 +2432,136 @@ Visualization Manager:
           Value: false
       Enabled: true
       Name: Control
+    - Class: rviz_common/Group
+      Displays:
+        - Class: rviz_common/Group
+          Displays: ~
+          Enabled: true
+          Name: Map
+        - Class: rviz_common/Group
+          Displays: ~
+          Enabled: true
+          Name: Sensing
+        - Class: rviz_common/Group
+          Enabled: true
+          Name: Localization
+          Displays:
+            - Alpha: 0.9990000128746033
+              Autocompute Intensity Bounds: true
+              Autocompute Value Bounds:
+                Max Value: 10
+                Min Value: -10
+                Value: true
+              Axis: Z
+              Channel Name: intensity
+              Class: rviz_default_plugins/PointCloud2
+              Color: 85; 255; 0
+              Color Transformer: FlatColor
+              Decay Time: 0
+              Enabled: true
+              Invert Rainbow: false
+              Max Color: 85; 255; 127
+              Max Intensity: 0
+              Min Color: 0; 0; 0
+              Min Intensity: 0
+              Name: NDT pointclouds
+              Position Transformer: XYZ
+              Selectable: false
+              Size (Pixels): 10
+              Size (m): 0.5
+              Style: Squares
+              Topic:
+                Depth: 5
+                Durability Policy: Volatile
+                Filter size: 10
+                History Policy: Keep Last
+                Reliability Policy: Reliable
+                Value: /localization/pose_estimator/points_aligned
+              Use Fixed Frame: true
+              Use rainbow: true
+              Value: true
+            - Alpha: 1
+              Autocompute Intensity Bounds: true
+              Autocompute Value Bounds:
+                Max Value: 10
+                Min Value: -10
+                Value: true
+              Axis: Z
+              Channel Name: intensity
+              Class: rviz_default_plugins/PointCloud2
+              Color: 255; 255; 255
+              Color Transformer: ""
+              Decay Time: 0
+              Enabled: true
+              Invert Rainbow: false
+              Max Color: 255; 255; 255
+              Max Intensity: 4096
+              Min Color: 0; 0; 0
+              Min Intensity: 0
+              Name: NDTLoadedPCDMap
+              Position Transformer: ""
+              Selectable: true
+              Size (Pixels): 3
+              Size (m): 0.1
+              Style: Flat Squares
+              Topic:
+                Depth: 5
+                Durability Policy: Volatile
+                Filter size: 10
+                History Policy: Keep Last
+                Reliability Policy: Reliable
+                Value: /localization/pose_estimator/debug/loaded_pointcloud_map
+              Use Fixed Frame: true
+              Use rainbow: true
+              Value: true
+            - Buffer Size: 200
+              Class: rviz_plugins::PoseHistory
+              Enabled: true
+              Line:
+                Alpha: 0.9990000128746033
+                Color: 170; 255; 127
+                Value: true
+                Width: 0.10000000149011612
+              Name: NDTPoseHistory
+              Topic:
+                Depth: 5
+                Durability Policy: Volatile
+                Filter size: 10
+                History Policy: Keep Last
+                Reliability Policy: Reliable
+                Value: /localization/pose_estimator/pose
+              Value: true
+            - Buffer Size: 1000
+              Class: rviz_plugins::PoseHistory
+              Enabled: true
+              Line:
+                Alpha: 0.9990000128746033
+                Color: 0; 255; 255
+                Value: true
+                Width: 0.10000000149011612
+              Name: EKFPoseHistory
+              Topic:
+                Depth: 5
+                Durability Policy: Volatile
+                Filter size: 10
+                History Policy: Keep Last
+                Reliability Policy: Reliable
+                Value: /localization/pose_twist_fusion_filter/pose
+              Value: true
+        - Class: rviz_common/Group
+          Displays: ~
+          Enabled: true
+          Name: Perception
+        - Class: rviz_common/Group
+          Displays: ~
+          Enabled: true
+          Name: Planning
+        - Class: rviz_common/Group
+          Displays: ~
+          Enabled: true
+          Name: Control
+      Enabled: false
+      Name: Debug
   Enabled: true
   Global Options:
     Background Color: 10; 10; 10
