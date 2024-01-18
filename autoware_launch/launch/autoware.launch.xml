@@ -65,7 +65,7 @@
       <arg name="sensor_model" value="$(var sensor_model)"/>
       <arg name="vehicle_id" value="$(var vehicle_id)"/>
       <arg name="launch_vehicle_interface" value="$(var launch_vehicle_interface)"/>
-      <arg name="config_dir" value="$(env HOME)/pix/parameter/sensor_kit/robobus_sensor_kit_description/extrinsic_parameters"/>
+      <arg name="config_dir" value="$(env HOME)/pix/parameter/sensor_kit/pixkit_sensor_kit_description/extrinsic_parameters"/>
     </include>
   </group>
 
